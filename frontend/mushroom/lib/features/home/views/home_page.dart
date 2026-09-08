@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:mushroom/features/home/widgets/app_app_bar.dart';
 import 'package:mushroom/features/home/widgets/app_app_button.dart';
 import 'package:mushroom/features/home/widgets/recent_analyzing.dart';
+import 'package:mushroom/features/main_shell/widgets/app_bottom_navigation_bar.dart';
+
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -28,9 +30,8 @@ class _HomePageState extends State<HomePage> {
             
           ),  
         ),
-        child: SafeArea(
-          child:Padding(padding: const EdgeInsets.all(28.0),
-          child: SingleChildScrollView(
+        child: SingleChildScrollView(
+          padding: EdgeInsets.fromLTRB(28, 28, 28, bottomNavContentInset(context)),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -217,8 +218,7 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
           ),
-          )
-          ),
+
         
       ),
       

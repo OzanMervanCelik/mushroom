@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mushroom/features/notifications/views/notification_profile_page.dart';
 
 class AppAppBar extends StatelessWidget implements PreferredSizeWidget {
   const AppAppBar({super.key});
@@ -30,7 +31,11 @@ class AppAppBar extends StatelessWidget implements PreferredSizeWidget {
         IconButton(
           icon: const Icon(Icons.notifications_none_rounded),
           color: const Color(0xFF3B3B3B),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(context, 
+            MaterialPageRoute(builder: (context)=> const NotificationProfilePage()),
+            );
+          },
         ),
         const CircleAvatar(
           radius: 22,

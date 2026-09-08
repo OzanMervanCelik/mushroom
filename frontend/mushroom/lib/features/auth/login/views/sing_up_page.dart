@@ -233,7 +233,7 @@ class _SingUpPageState extends State<SingUpPage> {
 
                   const SizedBox(height: 28),
                   CustomElevatedButton(
-                    text: _isLoading ? 'Kaydediliyor...' : 'Kayıt Ol',
+                    text: _isLoading ? 'Kaydediliyor' : 'Kayıt Ol',
                     onPressed: _isLoading ? null : _kayitOl,
                     gradient: const RadialGradient(
                       center: Alignment(0.0, 1.9),

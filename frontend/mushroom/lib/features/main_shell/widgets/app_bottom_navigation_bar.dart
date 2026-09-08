@@ -3,7 +3,6 @@ import 'dart:ui' show ImageFilter;
 
 import 'package:flutter/material.dart';
 import 'package:solar_icons/solar_icons.dart';
-import 'package:mushroom/core/theme/app_colors.dart';
 
 
 
@@ -16,14 +15,14 @@ double bottomNavContentInset(BuildContext context, {double margin = 8}) {
   return metrics.barHeight + barBottomInset + margin;
 }
 
-const _barColor = AppColors.bottomBarBackground;
-const _iconColor = AppColors.bottomBarIcon;
-const _iconSelectedColor = AppColors.bottomBarIconSelected;
-const _itemCircleSelectedColor = AppColors.bottomBarItemCircleSelected;
-const _scanButtonColor = AppColors.scanButtonBackground;
-const _scanIconColor = AppColors.scanButtonIcon;
+//const _barColor = Color(0xCC454545);
+const _iconColor = Color(0xFFFFF0EB);
+const _iconSelectedColor = Color(0xFF2A0B02);
+//const _itemCircleSelectedColor = Color(0xFFFFAB87);
+const _scanButtonColor = Color(0xFF351201);
+const _scanIconColor = Color(0xFFFFFFFF);
 
-const _glassBlurSigma = 20.0;
+const _glassBlurSigma = 10.0;
 final _glassBorderColor = Colors.white.withValues(alpha: 0.10);
 final _floatingShadow = <BoxShadow>[
   BoxShadow(
@@ -102,7 +101,7 @@ class AppBottomNavigationBar extends StatelessWidget {
                       horizontal: metrics.innerHorizontalPadding,
                     ),
                     decoration: BoxDecoration(
-                      color: _barColor,
+                      //color: _barColor,
                       borderRadius: BorderRadius.circular(
                         metrics.barHeight / 2,
                       ),
@@ -209,9 +208,9 @@ class _NavIconButton extends StatelessWidget {
               width: metrics.itemCircleSize,
               height: metrics.itemCircleSize,
               decoration: BoxDecoration(
-                color: selected
-                    ? _itemCircleSelectedColor
-                    : Colors.transparent,
+                //color: selected
+                    //? _itemCircleSelectedColor
+                   // : Colors.transparent,
                 shape: BoxShape.circle,
               ),
               child: Center(
@@ -256,6 +255,14 @@ class _ScanButton extends StatelessWidget {
             decoration: const BoxDecoration(
               color: _scanButtonColor,
               shape: BoxShape.circle,
+              gradient: RadialGradient(
+                center: Alignment(0,0.7),
+                radius: 0.4,
+                colors: [
+                  Color(0xFFFF8347),
+                  _scanButtonColor,
+                ],
+              ),
             ),
             child: Center(
               child: Icon(

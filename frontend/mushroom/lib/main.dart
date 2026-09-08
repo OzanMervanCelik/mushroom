@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:mushroom/features/home/widgets/login_page.dart';
 import 'package:mushroom/features/main_shell/views/main_shell_page.dart';
 
 void main() async {
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
           seedColor: const Color(0xFF2F80ED),
         ).copyWith(primary: const Color(0xFF2F80ED)),
       ),
-      home: const MainShellPage(),
+      home: const LoginPage(),
     );
   }
 }

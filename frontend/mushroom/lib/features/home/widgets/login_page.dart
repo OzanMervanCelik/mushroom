@@ -1,8 +1,76 @@
 import 'package:flutter/material.dart';
+import 'package:mushroom/features/auth/login/views/forgot_password.dart';
+import 'package:mushroom/features/auth/login/views/sing_up_page.dart';
 import 'package:mushroom/features/auth/login/widgets/custom_elevated_button.dart';
+import 'package:mushroom/services/firebase_auth_service.dart';
+import 'package:mushroom/features/main_shell/views/main_shell_page.dart';
 
-class RegisterPage extends StatelessWidget {
-  const RegisterPage({super.key});
+
+class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
+
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  final _authService = FirebaseAuthService();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  bool _isLoading = false;
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
+  Future<void> _emailIleGiris() async {
+    final email = _emailController.text.trim();
+    final password = _passwordController.text;
+
+    if (email.isEmpty || password.isEmpty) {
+      _mesajGoster('E-posta ve şifre boş bırakılamaz.');
+      return;
+    }
+
+    setState(() => _isLoading = true);
+    try {
+      final user = await _authService.signInWithEmail(
+        email: email,
+        password: password,
+      );
+      if (!mounted) return;
+      _mesajGoster('Hoşgeldiniz ${user.user?.displayName ?? user.user?.email}');
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const MainShellPage()),
+      );
+          } on AuthException catch (e) {
+      if (mounted) _mesajGoster(e.message);
+    } finally {
+      if (mounted) setState(() => _isLoading = false);
+    }
+  }
+
+  Future<void> _googleIleGiris() async {
+    setState(() => _isLoading = true);
+    try {
+      final user = await _authService.signInWithGoogle();
+      if (user != null && mounted) {
+        _mesajGoster('Hoşgeldiniz ${user.user?.email}');
+        Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const MainShellPage()),
+      );
+    }
+    } finally {
+      if (mounted) setState(() => _isLoading = false);
+    }
+  }
+
+  void _mesajGoster(String mesaj) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(mesaj)));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,8 +96,8 @@ class RegisterPage extends StatelessWidget {
                 children: [
                   Image.asset(
                     'assets/logo/Union.png',
-                    width: 550,
-                    height: 50,
+                    width: 230,
+                    height: 70,
                     fit: BoxFit.cover,
                   ),
 
@@ -67,8 +135,11 @@ class RegisterPage extends StatelessWidget {
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(18),
                     ),
-                    child: const TextField(
-                      decoration: InputDecoration(
+                    child: TextField(
+                      controller: _emailController,
+                      keyboardType: TextInputType.emailAddress,
+                      textInputAction: TextInputAction.next,
+                      decoration: const InputDecoration(
                         labelText: 'E-Mail address',
                         hintText: 'Please login to your account',
                         hintStyle: TextStyle(
@@ -82,32 +153,20 @@ class RegisterPage extends StatelessWidget {
 
                   const SizedBox(height: 16),
 
+                  // Password Input
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(18),
                     ),
-                    child: const TextField(
+                    child: TextField(
+                      controller: _passwordController,
                       obscureText: true,
-                      decoration: InputDecoration(
+                      textInputAction: TextInputAction.done,
+                      onSubmitted: (_) => _emailIleGiris(),
+                      decoration: const InputDecoration(
                         labelText: 'Password',
-                        border: InputBorder.none,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(18),
-                    ),
-                    child: const TextField(
-                      obscureText: true,
-                      decoration: InputDecoration(
-                        labelText: 'Re - Enter Your Password',
                         border: InputBorder.none,
                       ),
                     ),
@@ -134,6 +193,9 @@ class RegisterPage extends StatelessWidget {
                       ),
                       TextButton(
                         onPressed: () {
+                          Navigator.push(context, 
+                          MaterialPageRoute(builder: (context)=> const ForgotPassword()),
+                         );
                         },
                         style: TextButton.styleFrom(
                           padding: EdgeInsets.zero,
@@ -154,8 +216,8 @@ class RegisterPage extends StatelessWidget {
 
                   const SizedBox(height: 28),
                   CustomElevatedButton(
-                    text: 'Login',
-                    onPressed: () {},
+                    text: _isLoading ? 'Giriş yapılıyor' : 'Login',
+                    onPressed: _isLoading ? null : _emailIleGiris,
                     gradient: const RadialGradient(
                       center: Alignment(0.0, 1.9),
                       radius: 3.0,
@@ -170,7 +232,7 @@ class RegisterPage extends StatelessWidget {
                   const SizedBox(height: 20),
                   CustomElevatedButton(
                     text: 'Continue with Google',
-                    onPressed: () {},
+                    onPressed: _isLoading ? null : _googleIleGiris,
                     backgroundColor: Colors.white,
                     textColor: Colors.black87,
                     leadingIcon: Image.asset('assets/Icons/google.png', width: 22, height: 22),
@@ -201,7 +263,9 @@ class RegisterPage extends StatelessWidget {
                       ),
                       GestureDetector(
                         onTap: () {
-                          // Sign Up aksiyonu
+                          Navigator.push(context, 
+                          MaterialPageRoute(builder: (context)=> const SingUpPage()),
+                         );
                         },
                         child: const Text(
                           'Sign Up',
