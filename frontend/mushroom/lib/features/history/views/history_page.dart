@@ -23,7 +23,7 @@ class HistoryPage extends StatelessWidget {
             28,
             14,
             28,
-            bottomNavContentInset(context),
+            bottomNavContentInset(context, margin: 40),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

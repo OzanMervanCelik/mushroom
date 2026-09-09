@@ -15,7 +15,7 @@ double bottomNavContentInset(BuildContext context, {double margin = 8}) {
   return metrics.barHeight + barBottomInset + margin;
 }
 
-//const _barColor = Color(0xCC454545);
+//const _barColor = Color(0xFFAAAAAA);
 const _iconColor = Color(0xFFFFF0EB);
 const _iconSelectedColor = Color(0xFF2A0B02);
 //const _itemCircleSelectedColor = Color(0xFFFFAB87);

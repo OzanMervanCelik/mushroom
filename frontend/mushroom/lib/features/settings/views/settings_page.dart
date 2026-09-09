@@ -18,7 +18,7 @@ class _SettingsPageState extends State<SettingsPage> {
       backgroundColor: const Color(0xFFFFF0EB),
       body: ListView(
         // MainShellView extendBody: true kullaniyor, alt bar icerigi ortmesin.
-        padding: EdgeInsets.only(bottom: bottomNavContentInset(context)),
+        padding: EdgeInsets.only(bottom: bottomNavContentInset(context, margin: 40)),
         children: [
           const SettingsHeader(),
 

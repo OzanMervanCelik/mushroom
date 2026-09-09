@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:mushroom/features/home/views/home_page.dart';
 import 'package:mushroom/features/history/views/history_page.dart';
 import 'package:mushroom/features/main_shell/widgets/app_bottom_navigation_bar.dart';
@@ -30,10 +31,19 @@ class _MainShellViewState extends State<MainShellView> {
     setState(() => _currentIndex = index);
   }
 
-  void _onScanTap() {
-    Navigator.of(
-      context,
-    ).push(MaterialPageRoute<void>(builder: (_) => const ScanPage()));
+  final ImagePicker _imagePicker = ImagePicker();
+
+  Future<void> _onScanTap() async {
+    final XFile? photo = await _imagePicker.pickImage(
+      source: ImageSource.camera,
+    );
+
+    if (photo == null) return;
+    if (!mounted) return;
+
+    Navigator.of(context).push(
+      MaterialPageRoute<void>(builder: (_) => ScanPage(imagePath: photo.path)),
+    );
   }
 
   @override

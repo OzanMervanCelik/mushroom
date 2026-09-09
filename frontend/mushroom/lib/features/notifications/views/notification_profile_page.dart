@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:mushroom/features/home/widgets/app_app_button.dart';
-import 'package:mushroom/features/main_shell/widgets/app_bottom_navigation_bar.dart';
 import 'package:mushroom/features/notifications/widgets/notifications_header_page.dart';
 import 'package:mushroom/features/profile/widgets/profile_header.dart';
 
@@ -44,7 +43,7 @@ class _NotificationProfilePageState extends State<NotificationProfilePage> {
     return Scaffold(
       backgroundColor: const Color(0xFFFFF0EB),
       body: ListView(
-        padding: EdgeInsets.only(bottom: bottomNavContentInset(context)),
+        padding: const EdgeInsets.only(bottom: 60),
         children: [
           //const SizedBox(height: 1),
           const NotificationsHeaderPage(),

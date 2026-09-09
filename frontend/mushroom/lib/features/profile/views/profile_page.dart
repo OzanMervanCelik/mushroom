@@ -43,7 +43,7 @@ class _ProfilePageState extends State<ProfilePage> {
     return Scaffold(
       backgroundColor: const Color(0xFFFFF0EB),
       body: ListView(
-        padding: EdgeInsets.only(bottom: bottomNavContentInset(context)),
+        padding: EdgeInsets.only(bottom: bottomNavContentInset(context, margin: 40)),
         children: [
           const ProfileHeader(),
 

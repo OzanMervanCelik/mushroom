@@ -59,6 +59,10 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSCameraUsageDescription</key>
+	<string>Mantar taramak icin kameraya erisim gerekiyor.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Galeriden mantar fotografi secmek icin erisim gerekiyor.</string>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
